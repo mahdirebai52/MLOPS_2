@@ -10,6 +10,9 @@ import argparse
 import pandas as pd
 import mlflow
 import mlflow.sklearn
+
+# Enable local file tracking backend for MLflow
+os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
 from posthog import project_root
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
@@ -35,9 +38,9 @@ def main(args):
     """
     
     # === MLflow Setup - ESSENTIAL for experiment tracking ===
-    # Configure MLflow to use local file-based tracking (not a tracking server)
+    # Use SQLite backend (file store is deprecated in newer MLflow versions)
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    mlruns_path = args.mlflow_uri or f"file://{project_root}/mlruns"  # Local file-based tracking
+    mlruns_path = args.mlflow_uri or f"sqlite:///{project_root}/mlflow.db"  # SQLite backend
     mlflow.set_tracking_uri(mlruns_path)
     mlflow.set_experiment(args.experiment)  # Creates experiment if doesn't exist
 

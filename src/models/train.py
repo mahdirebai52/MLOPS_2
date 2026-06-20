@@ -1,6 +1,10 @@
+import os
 import mlflow
 import pandas as pd
 import mlflow.xgboost
+
+# Enable local file tracking backend for MLflow
+os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score

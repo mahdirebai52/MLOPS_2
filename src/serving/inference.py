@@ -28,6 +28,9 @@ import os
 import pandas as pd
 import mlflow
 
+# Enable local file tracking backend for MLflow
+os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
+
 # === MODEL LOADING CONFIGURATION ===
 # IMPORTANT: This path is set during Docker container build
 # In development: uses local MLflow artifacts
